@@ -50,7 +50,7 @@ const Features = () => {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="p-6 bg-white shadow-md rounded-lg text-center transition-transform transform hover:scale-105 duration-300 hover:shadow-xl"
+              className="p-6 bg-white shadow-md rounded-lg text-center cursor-pointer transition-transform transform hover:scale-105 duration-300 hover:shadow-xl"
             >
               <i className={`${feature.icon} text-5xl text-green-600 mb-4`}></i>
               <h3 className="text-xl font-semibold text-gray-800 mb-2">{feature.title}</h3>

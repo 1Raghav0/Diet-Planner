@@ -89,7 +89,7 @@ const LoginPage = () => {
             className="w-full px-4 py-2 border rounded-lg focus:outline-none transition bg-gray-100 border-gray-300 text-gray-900"
             required
           />
-
+ 
           <input
             type="password"
             name="password"
@@ -102,7 +102,7 @@ const LoginPage = () => {
 
           <button
             type="submit"
-            className="w-full bg-green-500 text-white py-2 rounded-lg font-semibold transition hover:bg-green-600"
+            className="w-full bg-green-500 text-white py-2 rounded-lg font-semibold transition cursor-pointer hover:bg-green-600"
             disabled={loading}
           >
             {loading ? "Processing..." : "Sign In"}
@@ -112,7 +112,7 @@ const LoginPage = () => {
         {/* Google Sign-In */}
         <button
           onClick={googleSignIn}
-          className="w-full bg-blue-500 text-white py-2 mt-4 rounded-lg font-semibold transition hover:bg-blue-600"
+          className="w-full bg-blue-500 text-white py-2 mt-4 rounded-lg font-semibold cursor-pointer transition hover:bg-blue-600"
           disabled={loading}
         >
           {loading ? "Processing..." : "Sign In with Google"}

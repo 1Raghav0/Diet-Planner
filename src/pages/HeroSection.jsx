@@ -53,10 +53,10 @@ const HeroSection = () => {
             </button>
             <button
               onClick={handleExploreFeatures}
-              className="w-full md:w-auto bg-white text-green-600 py-3 px-6 rounded-md text-lg font-medium hover:bg-green-50 border border-green-600"
+              className="w-full md:w-auto bg-white text-green-600 py-3 px-6 rounded-md cursor-pointer text-lg font-medium hover:bg-green-50 border border-green-600"
             >
               <span className="md:hidden">Explore</span>
-              <span className="hidden md:inline">Explore Features</span>
+              <span className="hidden   md:inline">Explore Features</span>
             </button>
           </div>
         </div>

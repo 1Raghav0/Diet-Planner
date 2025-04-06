@@ -31,7 +31,7 @@ const About = () => {
         </h2>
         <div className="grid md:grid-cols-3 gap-6">
           {/* Feature 1*/}
-          <div className="p-6 bg-white shadow-lg rounded-lg text-center transition-transform hover:shadow-lg hover:scale-105 duration-300">
+          <div className="p-6 bg-white shadow-lg rounded-lg text-center cursor-pointer transition-transform hover:shadow-lg hover:scale-105 duration-300">
             <h3 className="text-xl font-semibold mb-2">BMI-Based Diet Plans</h3>
             <p className="text-gray-600">
               Your BMI is a key indicator of your health. NutriWise crafts
@@ -52,7 +52,7 @@ const About = () => {
           </div>
 
           {/* Feature 3 */}
-          <div className="p-6 bg-white shadow-lg rounded-lg text-center transition-transform hover:shadow-lg hover:scale-105 duration-300">
+          <div className="p-6 bg-white shadow-lg rounded-lg text-center cursor-pointer transition-transform hover:shadow-lg hover:scale-105 duration-300">
             <h3 className="text-xl font-semibold mb-2">
               Category-Based Nutrition
             </h3>

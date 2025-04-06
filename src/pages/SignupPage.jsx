@@ -99,7 +99,7 @@ const SignUpPage = () => {
 
           <button
             type="submit"
-            className="w-full bg-green-500 text-white py-2 rounded-lg font-semibold transition hover:bg-green-600"
+            className="w-full bg-green-500 text-white py-2 rounded-lg font-semibold transition cursor-pointer hover:bg-green-600"
             disabled={loading}
           >
             {loading ? "Processing..." : "Sign Up"}
@@ -109,7 +109,7 @@ const SignUpPage = () => {
         <p className="text-center mt-4">
           Already have an account?{" "}
           <button
-            className="text-blue-400 hover:underline"
+            className="text-blue-400 cursor-pointer hover:underline"
             onClick={() => navigate("/login")}
           >
             Sign In

@@ -7,7 +7,7 @@ import {
   addDoc,
   query,
   where,
-  getDocs,
+  getDocs, 
   deleteDoc,
   doc,
 } from "firebase/firestore";
@@ -15,15 +15,15 @@ import { onAuthStateChanged } from "firebase/auth";
 
 const DietAssistant = () => {
   const [question, setQuestion] = useState("");
-  const [conversation, setConversation] = useState([]);
+  const [conversation, setConversation] = useState([]);  // Stores conversation history
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null); // Holds the logged-in user state
   const chatContainerRef = useRef(null);
   const [hasAutoSuggested, setHasAutoSuggested] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Fetch previous chats
+  // Fetch previous conversations of the user
   const fetchUserConversations = async (userId) => {
     try {
       const q = query(collection(db, "conversations"), where("userId", "==", userId));
@@ -32,12 +32,13 @@ const DietAssistant = () => {
         { id: doc.id, text: `👨‍💻 <strong>Question:</strong> ${doc.data().question}`, sender: "user" },
         { id: doc.id, text: `🤖 <strong>AI Suggestions:</strong> ${doc.data().response}`, sender: "ai" },
       ]);
-      setConversation(userConversations);
+      setConversation(userConversations);  // Set the fetched conversation in the state
     } catch (error) {
       console.error("Error fetching conversation:", error);
     }
   };
 
+  // Save conversation to Firestore
   const saveConversationToFirestore = async (questionText, responseText) => {
     if (!user) return;
     try {
@@ -52,6 +53,7 @@ const DietAssistant = () => {
     }
   };
 
+  // Analyze the user's input and fetch AI response
   const analyzeUI = useCallback(async (prompt = question) => {
     if (!prompt.trim()) return;
 
@@ -90,7 +92,7 @@ const DietAssistant = () => {
       const aiMessage = { text: `🤖 <strong>AI Suggestions:</strong> ${aiResponse}`, sender: "ai" };
       setConversation((prev) => [...prev, aiMessage]);
 
-      saveConversationToFirestore(prompt, aiResponse);
+      saveConversationToFirestore(prompt, aiResponse); // Save to Firestore
     } catch (error) {
       console.error("Error analyzing UI:", error);
       const errorMessage = { text: `❌ <strong>Error:</strong> Failed to analyze.`, sender: "ai" };
@@ -99,6 +101,7 @@ const DietAssistant = () => {
     setLoading(false);
   }, [question, user]);
 
+  // Clear all conversations for the logged-in user
   const clearConversations = async () => {
     if (!user) return;
     try {
@@ -107,34 +110,37 @@ const DietAssistant = () => {
       querySnapshot.forEach(async (document) => {
         await deleteDoc(doc(db, "conversations", document.id));
       });
-      setConversation([]);
-      setHasAutoSuggested(true); // prevent re-auto-trigger
-      navigate("/dietassistant"); // Remove the ?category=... from URL
+      setConversation([]); // Clear the current conversation from state
+      setHasAutoSuggested(true); // Prevent re-auto-trigger
+      navigate("/dietassistant"); // Redirect to the starting page
+
     } catch (error) {
       console.error("Error clearing conversations:", error);
     }
   };
 
-  // Detect login and fetch chats
+  // Detect login and fetch conversations
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       if (currentUser) {
-        fetchUserConversations(currentUser.uid);
+        fetchUserConversations(currentUser.uid);  // Fetch conversations when user logs in
+      } else {
+        // Clear conversation if not logged in
+        setConversation([]);
       }
     });
     return () => unsubscribe();
   }, []);
 
-  // Clear chat on refresh if user is not logged in
-useEffect(() => {
-  if (!user && conversation.length > 0) {
-    setConversation([]);
-    setHasAutoSuggested(true); // prevent auto-suggest
-    navigate("/dietassistant"); // clean the ?category= param from URL
-  }
-}, [user]);
-
+  // Clear chat when user is logged out or page is refreshed and user is not logged in
+  useEffect(() => {
+    if (!user) {
+      setConversation([]); // Clear conversation
+      setHasAutoSuggested(true); // Prevent re-auto-trigger
+      navigate("/dietassistant"); // Redirect to the starting page
+    }
+  }, [user, navigate]);
 
   // Auto-suggest diet based on category from URL
   useEffect(() => {
@@ -151,7 +157,7 @@ useEffect(() => {
 
       const questionText = promptMap[category.toLowerCase()];
       if (questionText) {
-        analyzeUI(questionText); // run automatically
+        analyzeUI(questionText); // Run automatically
         setHasAutoSuggested(true);
       }
     }
@@ -210,7 +216,7 @@ useEffect(() => {
             onKeyDown={(e) => e.key === "Enter" && analyzeUI()}
           />
           <button
-            className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition disabled:bg-gray-400"
+            className="px-4 py-2 bg-emerald-600 text-white rounded-lg cursor-pointer hover:bg-emerald-700 transition disabled:bg-gray-400"
             onClick={() => analyzeUI()}
             disabled={loading}
           >
