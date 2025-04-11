@@ -1,4 +1,25 @@
-import React from "react";
+const features = [
+  {
+    title: "BMI-Based Diet Plans",
+    description:
+      "Your BMI is a key indicator of your health. NutriWise crafts optimal diets based on your BMI to help you lose, gain, or maintain weight safely.",
+  },
+  {
+    title: "Personalized Meal Plans",
+    description:
+      "Get diet plans based on your body type, goals, allergies, and lifestyle.",
+  },
+  {
+    title: "Category-Based Nutrition",
+    description:
+      "Choose from Vegetarian, Non-Vegetarian, Vegan, Keto, and more. Our AI designs balanced plans around your preferences.",
+  },
+  {
+    title: "AI Nutrition Insights",
+    description:
+      "Our AI analyzes your food intake and gives smart feedback for optimal health improvement.",
+  },
+];
 
 const About = () => {
   return (
@@ -30,48 +51,15 @@ const About = () => {
           Why Choose Our Diet Planner?
         </h2>
         <div className="grid md:grid-cols-3 gap-6">
-          {/* Feature 1*/}
-          <div className="p-6 bg-white shadow-lg rounded-lg text-center cursor-pointer transition-transform hover:shadow-lg hover:scale-105 duration-300">
-            <h3 className="text-xl font-semibold mb-2">BMI-Based Diet Plans</h3>
-            <p className="text-gray-600">
-              Your BMI is a key indicator of your health. NutriWise crafts
-              optimal diets based on your BMI to help you lose, gain, or
-              maintain weight safely.
-            </p>
-          </div>
-
-          {/* Feature 2 */}
-          <div className="p-6 bg-white shadow-lg rounded-lg text-center cursor-pointer transition-transform transform hover:shadow-lg hover:scale-105 duration-300">
-            <h3 className="text-xl font-semibold mb-2">
-              Personalized Meal Plans
-            </h3>
-            <p className="text-gray-600">
-              Get diet plans based on your body type, goals, allergies, and
-              lifestyle.
-            </p>
-          </div>
-
-          {/* Feature 3 */}
-          <div className="p-6 bg-white shadow-lg rounded-lg text-center cursor-pointer transition-transform hover:shadow-lg hover:scale-105 duration-300">
-            <h3 className="text-xl font-semibold mb-2">
-              Category-Based Nutrition
-            </h3>
-            <p className="text-gray-600">
-              Choose from Vegetarian, Non-Vegetarian, Vegan, Keto, and more. Our
-              AI designs balanced plans around your preferences.
-            </p>
-          </div>
-
-          {/* Feature 4 */}
-          <div className="p-6 bg-white shadow-lg rounded-lg text-center cursor-pointer transition-transform transform hover:shadow-lg hover:scale-105 duration-300">
-            <h3 className="text-xl font-semibold mb-2">
-              AI Nutrition Insights
-            </h3>
-            <p className="text-gray-600">
-              Our AI analyzes your food intake and gives smart feedback for
-              optimal health improvement.
-            </p>
-          </div>
+          {features.map((feature, index) => (
+            <div
+              key={index}
+              className="p-6 bg-white shadow-lg rounded-lg text-center cursor-pointer transition-transform hover:shadow-lg hover:scale-105 duration-300"
+            >
+              <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+              <p className="text-gray-600">{feature.description}</p>
+            </div>
+          ))}
         </div>
       </div>
 

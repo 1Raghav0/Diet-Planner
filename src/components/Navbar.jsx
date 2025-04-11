@@ -151,7 +151,7 @@ const Navbar = () => {
             ) : (
               <Link
                 to="/login"
-                className="bg-white text-emerald-600 px-4 py-2 rounded-lg hover:bg-gray-100 transition font-semibold shadow"
+                className="bg-white text-emerald-600 px-4 py-2 rounded-lg hover:bg-gray-100 transition font-semibold shadow" onClick={() => setIsSidebarOpen(false)}
               >
                 Login
               </Link>
